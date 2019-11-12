@@ -2,17 +2,18 @@ import serial
 import time
 import csv
 
-arduino = serial.Serial('/dev/cu.usbmodem14201',38400)
+arduino = serial.Serial('/dev/cu.usbmodem14101',38400)
 start_time = time.time()
 array = []
 i=0
 while True:
-    data = arduino.readline()[:-2]
-    if data:
+    serial_output = str(arduino.readline())
+    if serial_output:
         elapsed_time = time.time()-start_time
-        mass = float(data[-9:-3])
+        str_idx = serial_output.find('g:')
+        mass = float(serial_output[str_idx+3:-8])
         array.append([elapsed_time,mass])
-        print(elapsed_time,mass)
+        print('Elapsed Time:',"%.3f" % round(elapsed_time,2),'s, Mass:',mass,'kg')
         with open('Output.csv','a',) as newFile:
             newFileWriter = csv.writer(newFile)
             newFileWriter.writerow([elapsed_time,mass])

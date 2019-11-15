@@ -14,6 +14,6 @@ while True:
         mass = float(serial_output[str_idx+3:-8])
         array.append([elapsed_time,mass])
         print('Elapsed Time:',"%.3f" % round(elapsed_time,2),'s, Mass:',mass,'kg')
-        with open('ringdown.csv','a',) as newFile:
+        with open('ring.csv','a',) as newFile:
             newFileWriter = csv.writer(newFile)
             newFileWriter.writerow([elapsed_time,mass])
